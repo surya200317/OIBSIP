@@ -1,0 +1,45 @@
+#importing the necessary libraries.
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.datasets import load_iris
+
+# Mounting the Google Drive
+from google.colab import drive
+drive.mount('/content/drive')
+
+# Loading the dataset
+file_path = '/content/drive/MyDrive/Iris.csv'
+df = pd.read_csv(file_path)
+
+# Displaying the first 10 rows of the dataset
+df.head(10)
+
+# Spliting the dataset
+X = df.drop('Species', axis=1)
+y = df['Species']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Featuring the scale
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Training the model
+knn_classifier = KNeighborsClassifier(n_neighbors=3)
+knn_classifier.fit(X_train, y_train)
+
+# Making the predictions
+y_pred = knn_classifier.predict(X_test)
+
+# Evaluating the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+
+print(f"Accuracy: {accuracy}")
+print(f"Confusion Matrix:\n{conf_matrix}")
+print(f"Classification Report:\n{class_report}")
