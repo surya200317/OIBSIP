@@ -54,3 +54,17 @@ print(f"Mean Absolute Error: {mae:.2f}")
 print(f"Mean Squared Error: {mse:.2f}")
 print(f"R-squared: {r2:.2f}")
 
+new_car = pd.DataFrame({
+    'Year': [2025],
+    'Present_Price': [8.0],
+    'Driven_kms': [4000],
+    'Fuel_Type': ['Petrol'],
+    'Selling_type': ['Dealer'],
+    'Transmission': ['Manual'],
+    'Owner': [1]
+})
+
+predicted_selling_price = model.predict(new_car)
+
+print(f"Predicted Selling Price: {predicted_selling_price[0]:.2f}")
+
